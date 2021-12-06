@@ -12,8 +12,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "NODE_ENV=production microbundle-crl --css-modules  false --format modern,cjs",
+    "start": "microbundle-crl watch  --css-modules  false --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -27,6 +27,8 @@
     "react": "^16.0.0"
   },
   "devDependencies": {
+    "@craco/craco": "^6.4.2",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -59,8 +61,7 @@
     "react-helmet": "^6.1.0",
     "react-scripts": "^4.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
-    "typescript": "^3.7.5",
-    "@craco/craco": "^6.4.2"
+    "typescript": "^3.7.5"
   },
   "files": [
     "dist"

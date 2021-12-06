@@ -2341,25 +2341,26 @@ function ShopifyShop() {
     return React.createElement("div", {
       className: 'flex justify-center items-center'
     }, React.createElement("div", {
-      className: '\n      animate-spin\n      rounded-full\n      h-32\n      w-32\n      border-t-2 border-b-2 border-purple-500\n    '
+      className: '\n      animate-spin\n      rounded-full\n      h-16\n      w-16\n      border-t-2 border-b-2 border-purple-500\n    '
     }));
   }
 
   return React.createElement("div", null, React.createElement("div", {
-    className: 'card',
     id: 'merch-card'
   }, React.createElement("div", {
-    className: 'card-body'
+    className: 'grid grid-flow-col'
   }, collections.length > 0 ? collections.map(collection => {
     return React.createElement("div", {
       key: collection.id,
-      className: 'my-5',
+      className: 'm-4 p-5 w-full shadow-lg border-gray-500',
       onClick: () => {
         shopifyClient.checkout.create().then(checkout => {
           console.log(checkout);
         });
       }
-    }, React.createElement("h2", null, collection.title), collection.products.map(product => {
+    }, React.createElement("h2", {
+      className: 'text-2xl font-bold'
+    }, collection.title), collection.products.map(product => {
       return React.createElement("div", {
         key: product.id
       }, product.title);

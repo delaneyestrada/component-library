@@ -201,8 +201,8 @@ export default function ShopifyShop() {
           className='
       animate-spin
       rounded-full
-      h-32
-      w-32
+      h-16
+      w-16
       border-t-2 border-b-2 border-purple-500
     '
         />
@@ -212,14 +212,14 @@ export default function ShopifyShop() {
 
   return (
     <div>
-      <div className='card' id='merch-card'>
-        <div className='card-body'>
+      <div id='merch-card'>
+        <div className='grid grid-flow-col'>
           {collections.length > 0 ? (
             collections.map((collection: any) => {
               return (
                 <div
                   key={collection.id}
-                  className='my-5'
+                  className='m-4 p-5 w-full shadow-lg border-gray-500'
                   onClick={() => {
                     shopifyClient.checkout.create().then((checkout: any) => {
                       // Do something with the checkout
@@ -227,7 +227,7 @@ export default function ShopifyShop() {
                     })
                   }}
                 >
-                  <h2>{collection.title}</h2>
+                  <h2 className='text-2xl font-bold'>{collection.title}</h2>
                   {collection.products.map((product: any) => {
                     return <div key={product.id}>{product.title}</div>
                   })}
