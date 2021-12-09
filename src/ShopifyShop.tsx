@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ShopifyBuy from '@shopify/buy-button-js'
+import ProductCard from './components/ProductCard'
+import { Product } from './types'
 
 // const shopifyComponentOptions = {
 //   product: {
@@ -213,7 +215,7 @@ export default function ShopifyShop() {
   return (
     <div>
       <div id='merch-card'>
-        <div className='grid grid-flow-col'>
+        <div className='flex flex-col'>
           {collections.length > 0 ? (
             collections.map((collection: any) => {
               return (
@@ -228,9 +230,11 @@ export default function ShopifyShop() {
                   }}
                 >
                   <h2 className='text-2xl font-bold'>{collection.title}</h2>
-                  {collection.products.map((product: any) => {
-                    return <div key={product.id}>{product.title}</div>
-                  })}
+                  <div className='flex flex-wrap'>
+                    {collection.products.map((product: Product) => {
+                      return <ProductCard key={product.id} product={product} />
+                    })}
+                  </div>
                 </div>
               )
             })

@@ -2334,6 +2334,45 @@ function TourSection(_ref) {
   }));
 }
 
+function ProductCard(_ref) {
+  var product = _ref.product;
+
+  var _useState = React.useState(),
+      itemVariant = _useState[0],
+      setItemVariant = _useState[1];
+
+  return React__default.createElement("div", {
+    className: 'mr-4 p-4 w-1/4'
+  }, React__default.createElement("div", {
+    className: 'flex justify-center'
+  }, React__default.createElement("span", {
+    className: 'font-bold text-lg'
+  }, product.title)), product.images.length > 0 ? React__default.createElement("div", {
+    className: 'h-48 flex justify-center'
+  }, React__default.createElement("img", {
+    src: product.images[0].src,
+    alt: '',
+    className: 'object-contain'
+  })) : '', React__default.createElement("div", {
+    className: 'flex flex-col justify-center'
+  }, React__default.createElement("p", null, product.description), React__default.createElement("p", null, product.variants[0].price), itemVariant === null || itemVariant === void 0 ? void 0 : itemVariant.sku, React__default.createElement("select", {
+    onChange: function onChange(event) {
+      var prodVariant = product.variants.find(function (variant) {
+        return variant.id === event.target.value;
+      });
+
+      if (prodVariant) {
+        setItemVariant(prodVariant);
+      }
+    }
+  }, product.variants.map(function (variant) {
+    return React__default.createElement("option", {
+      value: variant.id,
+      key: variant.id
+    }, variant.title);
+  }))));
+}
+
 function ShopifyShop() {
   var _useState = React.useState(null),
       collections = _useState[0],
@@ -2361,7 +2400,7 @@ function ShopifyShop() {
   return React__default.createElement("div", null, React__default.createElement("div", {
     id: 'merch-card'
   }, React__default.createElement("div", {
-    className: 'grid grid-flow-col'
+    className: 'flex flex-col'
   }, collections.length > 0 ? collections.map(function (collection) {
     return React__default.createElement("div", {
       key: collection.id,
@@ -2373,11 +2412,14 @@ function ShopifyShop() {
       }
     }, React__default.createElement("h2", {
       className: 'text-2xl font-bold'
-    }, collection.title), collection.products.map(function (product) {
-      return React__default.createElement("div", {
-        key: product.id
-      }, product.title);
-    }));
+    }, collection.title), React__default.createElement("div", {
+      className: 'flex flex-wrap'
+    }, collection.products.map(function (product) {
+      return React__default.createElement(ProductCard, {
+        key: product.id,
+        product: product
+      });
+    })));
   }) : React__default.createElement("div", null, "No collections"))));
 }
 

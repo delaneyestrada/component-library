@@ -2324,6 +2324,40 @@ function TourSection({
   }));
 }
 
+function ProductCard({
+  product
+}) {
+  const [itemVariant, setItemVariant] = useState();
+  return React.createElement("div", {
+    className: 'mr-4 p-4 w-1/4'
+  }, React.createElement("div", {
+    className: 'flex justify-center'
+  }, React.createElement("span", {
+    className: 'font-bold text-lg'
+  }, product.title)), product.images.length > 0 ? React.createElement("div", {
+    className: 'h-48 flex justify-center'
+  }, React.createElement("img", {
+    src: product.images[0].src,
+    alt: '',
+    className: 'object-contain'
+  })) : '', React.createElement("div", {
+    className: 'flex flex-col justify-center'
+  }, React.createElement("p", null, product.description), React.createElement("p", null, product.variants[0].price), itemVariant === null || itemVariant === void 0 ? void 0 : itemVariant.sku, React.createElement("select", {
+    onChange: event => {
+      const prodVariant = product.variants.find(variant => variant.id === event.target.value);
+
+      if (prodVariant) {
+        setItemVariant(prodVariant);
+      }
+    }
+  }, product.variants.map(variant => {
+    return React.createElement("option", {
+      value: variant.id,
+      key: variant.id
+    }, variant.title);
+  }))));
+}
+
 function ShopifyShop() {
   const [collections, setCollections] = useState(null);
   const shopifyClient = ShopifyBuy.buildClient({
@@ -2348,7 +2382,7 @@ function ShopifyShop() {
   return React.createElement("div", null, React.createElement("div", {
     id: 'merch-card'
   }, React.createElement("div", {
-    className: 'grid grid-flow-col'
+    className: 'flex flex-col'
   }, collections.length > 0 ? collections.map(collection => {
     return React.createElement("div", {
       key: collection.id,
@@ -2360,11 +2394,14 @@ function ShopifyShop() {
       }
     }, React.createElement("h2", {
       className: 'text-2xl font-bold'
-    }, collection.title), collection.products.map(product => {
-      return React.createElement("div", {
-        key: product.id
-      }, product.title);
-    }));
+    }, collection.title), React.createElement("div", {
+      className: 'flex flex-wrap'
+    }, collection.products.map(product => {
+      return React.createElement(ProductCard, {
+        key: product.id,
+        product: product
+      });
+    })));
   }) : React.createElement("div", null, "No collections"))));
 }
 
